@@ -1,0 +1,22 @@
+{
+  "name": "johnnywebs/laravel-package-creator",
+  "description": "Boilerplate creator for my laravel applications",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Johnnywebs\\LaravelPackageCreator\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Johnnywebs\\LaravelPackageCreator\\ToolServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": ">=8.1",
+    "illuminate/support": "^13.0"
+  }
+}
