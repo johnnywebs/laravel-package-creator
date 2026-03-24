@@ -17,6 +17,7 @@ class MakePackage extends Command
      */
     public function handle()
     {
+		$this->ensureAutoload();
         $name = $this->argument('name');
         $moduleName = Str::studly($name);
 
@@ -110,4 +111,34 @@ class MakePackage extends Command
 
 		$this->info("Package {$moduleName} created successfully!");
     }
+	
+	protected function ensureAutoload(): void
+	{
+		$composerPath = base_path('composer.json');
+
+		if (!file_exists($composerPath)) {
+			return;
+		}
+
+		$composer = json_decode(file_get_contents($composerPath), true);
+
+		if (!isset($composer['autoload']['psr-4']['Packages\\'])) {
+
+			$composer['autoload']['psr-4']['Packages\\'] = 'packages/';
+
+			file_put_contents(
+				$composerPath,
+				json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+			);
+
+			$this->info('✅ Added Packages namespace to composer.json');
+
+			// Run dump-autoload automatically
+			$this->info('🔄 Running composer dump-autoload...');
+			exec('composer dump-autoload');
+
+		} else {
+			$this->line('✔ Packages namespace already configured');
+		}
+	}
 }
