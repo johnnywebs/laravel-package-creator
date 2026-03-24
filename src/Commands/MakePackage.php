@@ -50,7 +50,7 @@ class MakePackage extends Command
 			<<<PHP
 			<?php
 
-			namespace {$moduleName}\\Providers;
+			namespace Packages\\{$moduleName}\\Providers;
 
 			use Illuminate\Support\ServiceProvider;
 
@@ -63,9 +63,9 @@ class MakePackage extends Command
 
 				public function boot(): void
 				{
-					$this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
-					$this->loadViewsFrom(__DIR__ . '/../Resources/views', '{$moduleName}');
-					$this->loadMigrationsFrom(__DIR__ . '/../Database/migrations');
+					\$this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+					\$this->loadViewsFrom(__DIR__ . '/../Resources/views', '{$moduleName}');
+					\$this->loadMigrationsFrom(__DIR__ . '/../Database/migrations');
 				}
 			}
 			PHP
@@ -91,7 +91,7 @@ class MakePackage extends Command
 			<<<PHP
 			<?php
 
-			namespace {$moduleName}\Http\Controllers;
+			namespace Packages\\{$moduleName}\Http\Controllers;
 
 			use Illuminate\Http\Request;
 			use Illuminate\Routing\Controller;
